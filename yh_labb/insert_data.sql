@@ -59,30 +59,52 @@ INSERT INTO "Course" (course_id, course_name, teacher_id) VALUES
 (507, 'Network Penetration Testing', 7), -- Maul
 (508, 'Embedded C++ Programming', 8);    -- Dooku
 
--- -------------------------------------------------------------
--- 6. CLASSES (Real Class Codes)
+-- 6. CLASSES (12 Classes Total - 3 Per Leader)
 -- -------------------------------------------------------------
 INSERT INTO "Class" (class_id, class, program_id, school_id, edu_leader_id, class_start_date, class_end_date) VALUES
-(23, 'DE23', 101, 1, 1, '2023-08-15', '2025-06-01'), -- Data Eng 23 (Liljeholmen)
-(24, 'DE24', 101, 1, 1, '2024-08-15', '2026-06-01'), -- Data Eng 24 (Liljeholmen)
-(99, 'AI24', 103, 3, 2, '2024-09-01', '2026-06-01'), -- AI Remote
-(45, 'SEC24', 104, 2, 3, '2024-08-20', '2026-06-01'),-- Cybersec (Kista) - Run by Palpatine
-(55, 'IOT24', 105, 2, 4, '2024-08-20', '2026-06-01');-- IoT (Kista) - Run by Padmé
+-- Anna (ID 1) manages Data Engineering & AI
+(23, 'DE23', 101, 1, 1, '2023-08-15', '2025-06-01'),
+(24, 'DE24', 101, 1, 1, '2024-08-15', '2026-06-01'),
+(99, 'AI24', 103, 3, 1, '2024-09-01', '2026-06-01'),
+
+-- Lars (ID 2) manages DevOps (The strict admin)
+(30, 'OPS23', 102, 2, 2, '2023-08-20', '2025-06-01'),
+(31, 'OPS24', 102, 2, 2, '2024-08-20', '2026-06-01'),
+(32, 'OPS25', 102, 2, 2, '2025-08-20', '2027-06-01'),
+
+-- Palpatine (ID 3) manages Cybersecurity (The "Senate" needs spies)
+(40, 'SEC23', 104, 2, 3, '2023-08-20', '2025-06-01'),
+(41, 'SEC24', 104, 2, 3, '2024-08-20', '2026-06-01'),
+(42, 'SEC25', 104, 2, 3, '2025-08-20', '2027-06-01'),
+
+-- Padmé (ID 4) manages IoT (Hardware & Droids)
+(50, 'IOT23', 105, 1, 4, '2023-09-01', '2025-06-01'),
+(51, 'IOT24', 105, 1, 4, '2024-09-01', '2026-06-01'),
+(52, 'IOT25', 105, 1, 4, '2025-09-01', '2027-06-01');
 
 -- -------------------------------------------------------------
--- 7. COURSE CONTENT (Curriculum per Class)
+-- 7. COURSE CONTENT (Curriculum for all 12 classes)
 -- -------------------------------------------------------------
 INSERT INTO "Course_Class_list" (class_id, course_id, points) VALUES
--- DE23 (Older class)
-(23, 501, 25), (23, 502, 30),
--- DE24 (Newer class)
-(24, 501, 20), (24, 504, 40),
--- AI24 (Remote)
-(99, 503, 50), (99, 501, 25),
--- SEC24 (Cybersecurity)
-(45, 507, 60), (45, 504, 30), -- Pentesting + Cloud
--- IOT24 (IoT)
-(55, 508, 50), (55, 506, 30); -- C++ + Java
+-- Anna's Classes
+(23, 501, 25), (23, 502, 30), -- DE23
+(24, 501, 20), (24, 504, 40), -- DE24
+(99, 503, 50), (99, 501, 25), -- AI24
+
+-- Lars's Classes (DevOps needs Cloud & Java)
+(30, 504, 50), (30, 506, 50),
+(31, 504, 50), (31, 506, 50),
+(32, 504, 60), (32, 501, 40),
+
+-- Palpatine's Classes (Cybersec needs Pentesting & Ethics... or lack thereof)
+(40, 507, 60), (40, 503, 20),
+(41, 507, 60), (41, 503, 20),
+(42, 507, 70), (42, 504, 30),
+
+-- Padmé's Classes (IoT needs Embedded C & UX)
+(50, 508, 50), (50, 505, 30),
+(51, 508, 50), (51, 505, 30),
+(52, 508, 60), (52, 506, 40);
 
 -- -------------------------------------------------------------
 -- 8. STUDENTS (The Massive Star Wars Cast)
@@ -93,7 +115,7 @@ INSERT INTO "Student" (student_id, first_name, last_name, personnummer, email, p
 (2, 'Leia', 'Organa', '19900504-0002', 'leia@senate.gov', 100),
 (3, 'Han', 'Solo', '19850101-0003', 'han@falcon.net', 10),
 
--- The Villains / Complex Characters
+-- The Villains
 (4, 'Anakin', 'Skywalker', '19800101-6666', 'vader@empire.com', 200),
 (6, 'Kylo', 'Ren', '19950101-5678', 'kylo@firstorder.com', 40),
 
@@ -102,7 +124,7 @@ INSERT INTO "Student" (student_id, first_name, last_name, personnummer, email, p
 (7, 'Finn', 'FN-2187', '19980303-1111', 'finn@resistance.org', 20),
 (8, 'Poe', 'Dameron', '19951212-2222', 'poe@xwing.com', 45),
 
--- Rogue One Crew (Cybersecurity Students)
+-- Rogue One (Cybersec)
 (9, 'Jyn', 'Erso', '19960101-9999', 'jyn@stardust.com', 60),
 (10, 'Cassian', 'Andor', '19940505-8888', 'cassian@intel.rebel', 65),
 (11, 'Bodhi', 'Rook', '19930707-7777', 'bodhi@pilot.imp', 30),
@@ -116,25 +138,19 @@ INSERT INTO "Student" (student_id, first_name, last_name, personnummer, email, p
 -- 9. ENROLLMENTS (Who studies what?)
 -- -------------------------------------------------------------
 INSERT INTO "Student_Class_list" (student_id, class_id) VALUES
--- DE23 (Seniors)
+-- DE23 (Anna)
 (1, 23), (2, 23), (3, 23), (13, 23), -- Luke, Leia, Han, Chewie
+-- DE24 (Anna)
+(5, 24), -- Rey
+-- AI24 (Anna)
+(6, 99), (4, 99), -- Kylo & Vader
 
--- DE24 (Juniors)
-(5, 24), (7, 24), (8, 24), -- Rey, Finn, Poe
+-- SEC23 (Palpatine)
+(9, 40), (10, 40), (11, 40), -- Jyn, Cassian, Bodhi
+-- SEC24 (Palpatine)
+(7, 41), -- Finn (Ex-Stormtrooper learning security)
 
--- AI24 (Remote)
-(6, 99), (4, 99), -- Kylo & Vader (Studying AI/Sith logic)
-
--- SEC24 (Cybersecurity - perfect for spies)
-(9, 45), (10, 45), (11, 45), -- Jyn, Cassian, Bodhi
-
--- IOT24 (Hardware/Engineering)
-(12, 55), (14, 55); -- Lando & Grogu
-
--- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
--- TEST: THE FAILING INSERT (Required for Lab Report)
--- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
--- The "Stormtrooper" test. This should FAIL.
-INSERT INTO "Student" (student_id, first_name, last_name, personnummer, email)
-VALUES (999, 'FN', '0000', '20000101-0000', NULL); 
-
+-- IOT23 (Padmé)
+(12, 50), (14, 50), -- Lando & Grogu
+-- OPS23 (Lars)
+(8, 30); -- Poe (DevOps for X-Wings)
