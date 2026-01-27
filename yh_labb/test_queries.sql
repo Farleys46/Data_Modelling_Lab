@@ -14,19 +14,6 @@ WHERE personnummer > '19900101-0000'
 ORDER BY personnummer;
 
 
---SELECT 
---    s.first_name || ' ' || s.last_name AS Student,
---    p.program_name AS Program,
---    c.class AS Class_Code,
---    sc.adress AS Campus_Location
---FROM "Student" s
---JOIN "Student_Class_list" scl ON s.student_id = scl.student_id
---JOIN "Class" c ON scl.class_id = c.class_id
---JOIN "Program" p ON c.program_id = p.program_id
---JOIN "School" sc ON c.school_id = sc.school_id
---ORDER BY c.class, s.last_name;
-
-
 -- Query 2: Get class details for class 'SEC24' including an attempt for window function. 
 SELECT
 c.class_id,
@@ -41,4 +28,17 @@ JOIN "Program" p ON c.program_id = p.program_id
 JOIN "Education_leader" el ON c.edu_leader_id = el.edu_leader_id
 JOIN "Course_Class_list" ccl ON c.class_id = ccl.class_id
 JOIN "Course" co ON ccl.course_id = co.course_id
-WHERE c.class = 'SEC24'
+WHERE c.class = 'SEC24';
+
+
+-- Query 3:
+
+SELECT 
+cons.company AS Consultant_Company,
+t.teacher_firstname || ' ' || t.teacher_lastname AS Consultant_Name,
+cons.hourly_rate AS Cost_Per_Hour,
+co.course_name
+FROM "Consultant" cons
+JOIN "Teacher" t ON cons.teacher_id = t.teacher_id
+JOIN "Course" co ON t.teacher_id = co.teacher_id
+ORDER BY cons.hourly_rate DESC;
